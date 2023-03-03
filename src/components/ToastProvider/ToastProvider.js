@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useKeydown from '../../hooks/useKeydown';
 
 export const ToastContext = React.createContext();
 
@@ -18,6 +19,9 @@ function ToastProvider({ children }) {
     const nextToastList = toasts.filter((item) => item.id !== id);
     setToasts(nextToastList);
   };
+
+  useKeydown('Escape', () => setToasts([]));
+
   return (
     <ToastContext.Provider
       value={{ toasts, createToast, setToasts, handleDismiss }}
